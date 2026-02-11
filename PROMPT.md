@@ -55,8 +55,8 @@ Also, you'll need to integrate with a **music API** for song search and playback
 
 ## Time
 
-- **Deadline:** 1 week from receipt
-- **Expected effort:** 3-5 hours
+- **Deadline:** 48 hours from receipt
+- **Expected effort:** ~3 hours
 - **AI tools:** Explicitly encouraged. This scope assumes you're using Claude Code, Cursor, Windsurf, or similar.
 
 ## Questions?
