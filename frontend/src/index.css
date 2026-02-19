@@ -1,3 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .party-shell {
+    @apply relative overflow-hidden text-slate-100;
+    background:
+      radial-gradient(1200px 500px at 10% -10%, rgba(22, 201, 255, 0.22), transparent 60%),
+      radial-gradient(900px 500px at 90% 0%, rgba(255, 77, 196, 0.2), transparent 60%),
+      linear-gradient(160deg, #060a18 0%, #070d1f 45%, #090a17 100%);
+  }
+
+  .party-shell.is-playing {
+    animation: hue-shift 9s linear infinite;
+  }
+
+  .glass-card {
+    @apply border border-cyan-200/20 bg-white/5 backdrop-blur-xl;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 18px 50px rgba(0, 0, 0, 0.35);
+  }
+
+  .glass-subtle {
+    @apply border border-cyan-100/15 bg-white/5 backdrop-blur-md;
+  }
+
+  .glass-input {
+    @apply border border-cyan-100/20 bg-slate-950/70 text-slate-100 placeholder:text-slate-400;
+  }
+
+  .neon-btn {
+    @apply transition duration-200;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  .neon-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .neon-cyan {
+    box-shadow:
+      0 0 0 1px rgba(34, 211, 238, 0.35),
+      0 8px 28px rgba(6, 182, 212, 0.35);
+  }
+
+  .neon-emerald {
+    box-shadow:
+      0 0 0 1px rgba(16, 185, 129, 0.35),
+      0 8px 28px rgba(16, 185, 129, 0.32);
+  }
+
+  .neon-violet {
+    box-shadow:
+      0 0 0 1px rgba(167, 139, 250, 0.35),
+      0 8px 28px rgba(124, 58, 237, 0.3);
+  }
+}
+
+@keyframes hue-shift {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(40deg);
+  }
+}

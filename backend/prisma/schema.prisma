@@ -7,4 +7,68 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-// Design your schema here
+model Party {
+  id                String    @id @default(cuid())
+  code              String    @unique
+  name              String
+  hostParticipantId String?
+  maxSongs          Int?
+  durationMinutes   Int?
+  currentSongId     String?
+  status            String    @default("ACTIVE")
+  playbackStatus    String    @default("PAUSED")
+  playbackStartedAt DateTime?
+  playbackOffsetSec Float     @default(0)
+  createdAt         DateTime  @default(now())
+  endedAt           DateTime?
+
+  participants Participant[]
+  songs        Song[]
+  votes        Vote[]
+}
+
+model Participant {
+  id       String   @id @default(cuid())
+  partyId  String
+  name     String
+  isHost   Boolean  @default(false)
+  joinedAt DateTime @default(now())
+
+  party Party  @relation(fields: [partyId], references: [id], onDelete: Cascade)
+  votes Vote[]
+
+  @@unique([partyId, name])
+}
+
+model Song {
+  id            String   @id @default(cuid())
+  partyId       String
+  addedById     String
+  title         String
+  artist        String
+  artworkUrl    String?
+  previewUrl    String?
+  externalUrl   String?
+  queuePosition Int
+  createdAt     DateTime @default(now())
+
+  party Party  @relation(fields: [partyId], references: [id], onDelete: Cascade)
+  votes Vote[]
+
+  @@unique([partyId, queuePosition])
+}
+
+model Vote {
+  id            String   @id @default(cuid())
+  partyId       String
+  songId        String
+  participantId String
+  createdAt     DateTime @default(now())
+
+  party       Party       @relation(fields: [partyId], references: [id], onDelete: Cascade)
+  song        Song        @relation(fields: [songId], references: [id], onDelete: Cascade)
+  participant Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+
+  @@unique([songId, participantId])
+  @@index([partyId, songId])
+}
